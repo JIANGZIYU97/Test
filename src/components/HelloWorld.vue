@@ -24,7 +24,7 @@
                             <el-dropdown-item>删除 </el-dropdown-item>
                         </el-dropdown-menu>
                     </el-dropdown>
-                    <span>王小龙</span>
+                    <span>王小龙dev</span>
                 </el-header>
 
                 <el-main>
