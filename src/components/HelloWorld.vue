@@ -3,12 +3,13 @@
         <el-container style="height: 500px; border: 1px solid #eee">
             <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
                 <el-menu :default-openeds="[]">
-                   
-                    <el-submenu v-for="(v, i) in itemCard" :key="i" :index="i + 1">
+
+                    <el-submenu v-for="(v, i) in itemCard" :key="i" :index="i + 1+''" >
                         <template slot="title"><i class="el-icon-message"></i>{{ v.cardname }}</template>
                         <el-menu-item-group v-for="(va, j) in v.items" :key="j">
                             <template slot="title">{{ va.itemTitle }}</template>
-                            <el-menu-item v-for="(val, k) in va.group" :key="k" :index="'(i+1)' + '-' + '(j+1)'">{{ val }}</el-menu-item>
+                            <el-menu-item v-for="(val, k) in va.group" :key="k" :index="'(i+1)' + '-' + '(j+1)'">{{ val
+                            }}</el-menu-item>
                         </el-menu-item-group>
                     </el-submenu>
                 </el-menu>
@@ -42,18 +43,31 @@
                 </el-main>
             </el-container>
         </el-container>
+        
+        <button @click="change">点击</button>
+        <component :is='soncom' @ffun="fun1"></component>
     </div>
 </template>
 
 
 <script>
+import { aData } from '../areaData.js';
+import son1 from './son1'
+import son2 from './son2'
 export default {
-    components: {},
+    components: {
+        son1,
+        son2
+    },
     computed: {
         stor() {
             return '123'
             // return this.$store.state.devaloperName;
         }
+    },
+    created() {
+        console.log(aData)
+        this.fun()
     },
     data() {
         const item = {
@@ -62,39 +76,49 @@ export default {
             address: '上海市普陀区金沙江路 1518 弄'
         };
         return {
+            soncom:'son1',
             tableData: Array(20).fill(item),
             itemCard: [
                 {
                     cardname: "导航1",
                     items: [
-                        { 
-                            itemTitle: "分组一", 
-                            group: ['选项一', '选项二'] 
-                        }, 
-                        { 
-                            itemTitle: "分组二", 
-                            group: ['选项一', '选项二', '选项三'] 
-                        }, 
+                        {
+                            itemTitle: "分组一",
+                            group: ['选项一', '选项二']
+                        },
+                        {
+                            itemTitle: "分组二",
+                            group: ['选项一', '选项二', '选项三']
+                        },
                     ]
                 },
                 {
                     cardname: "导航2",
                     items: [
-                        { 
-                            itemTitle: "分组一", 
-                            group: ['选项一', '选项二'] 
-                        }, 
-                        { 
-                            itemTitle: "分组二", 
-                            group: ['选项一', '选项二', '选项三'] 
-                        }, 
+                        {
+                            itemTitle: "分组一",
+                            group: ['选项一', '选项二']
+                        },
+                        {
+                            itemTitle: "分组二",
+                            group: ['选项一', '选项二', '选项三']
+                        },
                     ]
                 },
             ]
         }
     },
     methods: {
+        fun1(val){
+            console.log(val,'+++++')
+        },
+        change(){
+            console.log('切换',this.soncom);
+            this.soncom = this.soncom == 'son1' ? 'son2' : 'son1'
+        },
         fun() {
+            console.log(aData)
+
             // this.axios({
             //     method:"post",
             //     url:'/testdata'
